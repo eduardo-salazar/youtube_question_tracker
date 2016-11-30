@@ -1,5 +1,5 @@
 {
-  "manifest_vesion": 2,
+  "manifest_version": 2,
 
   "name": "Youtube Live Question Tracker",
   "description": "This extension keeps tack of the question in a youtube live session",
