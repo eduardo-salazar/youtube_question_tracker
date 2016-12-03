@@ -48,6 +48,18 @@ function getCurrentTabUrl(callback) {
 }
 function getDOM() {
     function modifyDOM() {
+        function showQuestion(element,question, author){
+          html = "";
+          html += "<div class='card card-outline-primary text-xs-center'>";
+          html += "  <div class='card-block'>";
+          html += "    <blockquote class='card-blockquote'>";
+          html += "      <p>"+question+"</p>";
+          html += "      <footer>by<cite title='Source Title'>"+author+"</cite></footer>";
+          html += "    </blockquote>";
+          html += "  </div>";
+          html += "</div>";
+          document.getElementById('container').insertAdjacentHTML( 'beforeend', html );
+        }
         function printQuestions(html){
           elements = document.getElementsByClassName('comment');
           Array.prototype.forEach.call(elements, function(el) {
@@ -57,6 +69,7 @@ function getDOM() {
                 author = el.getElementsByClassName('author')[0].innerText
                 string = author + ' : ' + question
                 console.log(string);
+                showQuestion
               }
           });
         }

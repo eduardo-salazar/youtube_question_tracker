@@ -22,12 +22,12 @@
             font-size: 100%;
         }
 
-        #status {
+        #container {
             /* avoid an excessively wide status text */
-            white-space: pre;
+            /*white-space: pre;
             text-overflow: ellipsis;
-            overflow: hidden;
-            max-width: 400px;
+            overflow: hidden;*/
+            width: 400px;
         }
     </style>
 
@@ -44,20 +44,55 @@
     <div>
         <input type="text" placeholder="Filter by.... ex: PREGUNTA:"></input>
     </div>
-    <div class="question-container">
-        <div class="question-card clearfix">
-            <div class="card-left" tabindex="0">
-                <div class="card-question">
-                    Como hago funcionar esta extension?
-                </div>
-                <div class="card-author">
-                    pedrito
-                </div>
-            </div>
-            <div class="card-right">
-                <button class=""><span>Remove</span></button>
-            </div>
+    <div id="container">
+      <div class="card card-outline-primary text-xs-center">
+        <div class="card-block">
+          <blockquote class="card-blockquote">
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
+            <footer>Someone famous in <cite title="Source Title">Source Title</cite></footer>
+          </blockquote>
         </div>
+      </div>
+      <div class="card card-outline-secondary text-xs-center">
+        <div class="card-block">
+          <blockquote class="card-blockquote">
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
+            <footer>Someone famous in <cite title="Source Title">Source Title</cite></footer>
+          </blockquote>
+        </div>
+      </div>
+      <div class="card card-outline-success text-xs-center">
+        <div class="card-block">
+          <blockquote class="card-blockquote">
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
+            <footer>Someone famous in <cite title="Source Title">Source Title</cite></footer>
+          </blockquote>
+        </div>
+      </div>
+      <div class="card card-outline-info text-xs-center">
+        <div class="card-block">
+          <blockquote class="card-blockquote">
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
+            <footer>Someone famous in <cite title="Source Title">Source Title</cite></footer>
+          </blockquote>
+        </div>
+      </div>
+      <div class="card card-outline-warning text-xs-center">
+        <div class="card-block">
+          <blockquote class="card-blockquote">
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
+            <footer>Someone famous in <cite title="Source Title">Source Title</cite></footer>
+          </blockquote>
+        </div>
+      </div>
+      <div class="card card-outline-danger text-xs-center">
+        <div class="card-block">
+          <blockquote class="card-blockquote">
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
+            <footer>Someone famous in <cite title="Source Title">Source Title</cite></footer>
+          </blockquote>
+        </div>
+      </div>
     </div>
     <div id="status"></div>
     <img id="image-result" hidden>
