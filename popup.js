@@ -46,44 +46,45 @@ function getCurrentTabUrl(callback) {
   // });
   // alert(url); // Shows "undefined", because chrome.tabs.query is async.
 }
+function showQuestion(element,question, author){
+  html = "";
+  html += "<div class='card card-outline-primary text-xs-center'>";
+  html += "  <div class='card-block'>";
+  html += "    <blockquote class='card-blockquote'>";
+  html += "      <p>"+question+"</p>";
+  html += "      <footer>by<cite title='Source Title'>"+author+"</cite></footer>";
+  html += "    </blockquote>";
+  html += "  </div>";
+  html += "</div>";
+  document.getElementById('container').insertAdjacentHTML( 'beforeend', html );
+}
 function getDOM() {
     function modifyDOM() {
-        function showQuestion(element,question, author){
-          html = "";
-          html += "<div class='card card-outline-primary text-xs-center'>";
-          html += "  <div class='card-block'>";
-          html += "    <blockquote class='card-blockquote'>";
-          html += "      <p>"+question+"</p>";
-          html += "      <footer>by<cite title='Source Title'>"+author+"</cite></footer>";
-          html += "    </blockquote>";
-          html += "  </div>";
-          html += "</div>";
-          document.getElementById('container').insertAdjacentHTML( 'beforeend', html );
-        }
-        function printQuestions(html){
+        var questions = []
+        function extractQuestions(){
           elements = document.getElementsByClassName('comment');
           Array.prototype.forEach.call(elements, function(el) {
               // Do stuff here
-              question = el.getElementsByClassName('comment-text')[0].innerText
+              var obj = {}
+              var question = el.getElementsByClassName('comment-text')[0].innerText
               if(question.indexOf("?") != -1){
                 author = el.getElementsByClassName('author')[0].innerText
-                string = author + ' : ' + question
-                console.log(string);
-                showQuestion
+                obj["author"] = author;
+                obj["question"] = question;
+                questions.push(obj);
               }
           });
         }
-        //You can play with your DOM here or check URL against your regex
-        console.log('Tab script:');
-        console.log(document.body);
-        printQuestions();
+        extractQuestions();
+        console.log(questions);
+        questions
     }
     //We have permission to access the activeTab, so we can call chrome.tabs.executeScript:
     chrome.tabs.executeScript({
         code: '(' + modifyDOM + ')();' //argument here is a string but function.toString() returns function's code
-    }, (results) => {
+    }, function(results) {
         //Here we have just the innerHTML and not DOM structure
-        console.log('Popup script:')
+        console.log('Getting elements from inside of extension:')
         console.log(results[0]);
     });
 }
