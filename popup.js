@@ -58,41 +58,44 @@ function showQuestion(element,question, author){
   html += "</div>";
   document.getElementById('container').insertAdjacentHTML( 'beforeend', html );
 }
-function getDOM() {
-    function modifyDOM() {
-        var questions = []
-        function extractQuestions(){
-          elements = document.getElementsByClassName('comment');
-          Array.prototype.forEach.call(elements, function(el) {
-              // Do stuff here
-              var obj = {}
-              var question = el.getElementsByClassName('comment-text')[0].innerText
-              if(question.indexOf("?") != -1){
-                author = el.getElementsByClassName('author')[0].innerText
-                obj["author"] = author;
-                obj["question"] = question;
-                questions.push(obj);
-              }
-          });
-        }
-        extractQuestions();
-        console.log(questions);
-        questions
+function modifyDOM() {
+    var questions = []
+    function extractQuestions(){
+      elements = document.getElementsByClassName('comment');
+      Array.prototype.forEach.call(elements, function(el) {
+          // Do stuff here
+          var obj = {}
+          var question = el.getElementsByClassName('comment-text')[0].innerText
+          if(question.indexOf("?") != -1){
+            author = el.getElementsByClassName('author')[0].innerText
+            obj["author"] = author;
+            obj["question"] = question;
+            questions.push(obj);
+          }
+      });
     }
-    //We have permission to access the activeTab, so we can call chrome.tabs.executeScript:
-    chrome.tabs.executeScript({
-        code: '(' + modifyDOM + ')();' //argument here is a string but function.toString() returns function's code
-    }, function(results) {
-        //Here we have just the innerHTML and not DOM structure
-        console.log('Getting elements from inside of extension:')
-        console.log(results[0]);
-    });
+    extractQuestions();
+    console.log(questions);
+    return questions
 }
 
 
+
 document.addEventListener('DOMContentLoaded', function() {
-  getCurrentTabUrl(function(url) {
-    //show information in console
-    getDOM();
+  function onExecuted(results) {
+      //Here we have just the innerHTML and not DOM structure
+      console.log('Getting elements from inside of extension:')
+      console.log(results[0]);
+  }
+
+  function onError(error){
+      console.log("Error");
+      console.log(error)
+
+  }
+  //We have permission to access the activeTab, so we can call chrome.tabs.executeScript:
+  executing = chrome.tabs.executeScript({
+      code: '(' + modifyDOM + ')();' //argument here is a string but function.toString() returns function's code
   });
+  executing.then(onExecuted, onError);
 });
