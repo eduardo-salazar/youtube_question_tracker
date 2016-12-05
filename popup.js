@@ -33,12 +33,4 @@ document.addEventListener('DOMContentLoaded', function() {
 
     console.log('Finished');
   }, 1000);
-
-  // For some reason this code is not working
-  // It seams the callback is not passing the return values
-  // executing.then(onExecuted, onError);
-
-
-
-
 });
