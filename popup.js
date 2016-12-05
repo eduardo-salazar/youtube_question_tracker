@@ -97,5 +97,9 @@ document.addEventListener('DOMContentLoaded', function() {
   executing = chrome.tabs.executeScript({
       code: '(' + modifyDOM + ')();' //argument here is a string but function.toString() returns function's code
   });
+
+  // For some reason this code is not working
+  // It seams the callback is not passing the return values
   executing.then(onExecuted, onError);
+
 });
