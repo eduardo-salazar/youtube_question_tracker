@@ -13,21 +13,27 @@ function showQuestion(question){
   document.getElementById('container').insertAdjacentHTML( 'beforeend', html );
 }
 
+function clear_container(){
+  document.getElementById('container').innerHTML= "";
+}
+
 document.addEventListener('DOMContentLoaded', function() {
+  window.setInterval(function(){
+    executing = chrome.tabs.executeScript({
+        file: 'content_script.js' //argument here is a string but function.toString() returns function's code
+    },function(results){
+      console.log("Callback in extension")
+      questions = results[0]
+      clear_container();
+      // Iterate array and show questions
+      for (var i in questions) {
+        showQuestion(questions[i]);
+      }
+    })
 
-  executing = chrome.tabs.executeScript({
-      file: 'content_script.js' //argument here is a string but function.toString() returns function's code
-  },function(results){
-    console.log("Callback in extension")
-    questions = results[0]
-    // Iterate array and show questions
-    for (var i in questions) {
-      console.log(questions[i])
-      showQuestion(questions[i]);
-    }
-  })
+    console.log('Finished');
+  }, 1000);
 
-  console.log('Finished');
   // For some reason this code is not working
   // It seams the callback is not passing the return values
   // executing.then(onExecuted, onError);
