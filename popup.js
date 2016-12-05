@@ -20,7 +20,7 @@ function clear_container(){
 document.addEventListener('DOMContentLoaded', function() {
   window.setInterval(function(){
     executing = chrome.tabs.executeScript({
-        file: 'content_script.js' //argument here is a string but function.toString() returns function's code
+        file: 'content_script.js' //This file contains the code that is going to run in the page
     },function(results){
       console.log("Callback in extension")
       questions = results[0]
